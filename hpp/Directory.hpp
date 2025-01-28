@@ -20,7 +20,14 @@ class Directory {
 public:
     const std::string path;
 
-    FileList& get_file_list(const std::list<std::string>& a_extensions = m_empty_extensions) {
+    Directory(const std::string& a_path) : path(a_path) {}
+
+    FileList& get_file_list(void) {
+        std::list<std::string> extensions;
+        return get_file_list(extensions);
+    }
+
+    FileList& get_file_list(const std::list<std::string>& a_extensions) {
         m_file_list.clear();
         get_file_list(m_file_list, path, a_extensions);
         return m_file_list;
@@ -83,7 +90,6 @@ private:
         closedir(dir);
     }
 
-    static const std::list<std::string> m_empty_extensions;
     FileList m_file_list;
 };
 
